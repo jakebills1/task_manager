@@ -1,0 +1,4 @@
+<%= turbo_stream.update dom_id(@task, "turbo") do %>
+  <%= render @task %>
+  <%= link_to "Edit this task", edit_task_path(@task), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+<% end %>
