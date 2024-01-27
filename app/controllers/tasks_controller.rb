@@ -26,8 +26,10 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.save
         format.html { redirect_to task_url(@task), notice: "Task was successfully created." }
+        format.turbo_stream
       else
         format.html { render :new, status: :unprocessable_entity }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@task)}_form", partial: "form", locals: { task: @task }) }
       end
     end
   end
@@ -40,6 +42,7 @@ class TasksController < ApplicationController
         format.turbo_stream
       else
         format.html { render :edit, status: :unprocessable_entity }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@task)}_form", partial: "form", locals: { task: @task }) }
       end
     end
   end
@@ -50,6 +53,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to tasks_url, notice: "Task was successfully destroyed." }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(helpers.dom_id(@task)) }
     end
   end
 
