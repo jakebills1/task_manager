@@ -3,9 +3,24 @@
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
-  <%= render "form", task: Task.new %>
 
-  <div id="tasks" class="min-w-full">
-    <%= render @tasks %>
+  <div class="grid grid-cols-4 gap-4">
+    <div id="tasks-backlog">
+      <p class="text-lg">Backlog</p>
+      <%= render @tasks.filter { |task| task.status == 'backlog' } %>
+    </div>
+    <div id="tasks-in_progress">
+      <p class="text-lg">In Progress</p>
+      <%= render @tasks.filter { |task| task.status == 'in_progress' } %>
+    </div>
+    <div id="tasks-qa">
+      <p class="text-lg">QA</p>
+      <%= render @tasks.filter { |task| task.status == 'qa' } %>
+    </div>
+    <div id="tasks-released">
+      <p class="text-lg">Released</p>
+      <%= render @tasks.filter { |task| task.status == 'released' } %>
+    </div>
   </div>
+  <%= render "form", task: Task.new %>
 </div>

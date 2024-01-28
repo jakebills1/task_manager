@@ -1,4 +1,4 @@
-<%= turbo_stream.append "tasks" do %>
+<%= turbo_stream.append "tasks-#{@task.status}" do %>
   <%= render "task", task: @task %>
 <% end %>
 <%= turbo_stream.replace "#{dom_id(Task.new)}_form" do %>
